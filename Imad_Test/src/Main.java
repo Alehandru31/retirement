@@ -1,69 +1,94 @@
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Scanner;
-
-import static java.lang.System.exit;
-import static sun.security.util.KeyUtil.validate;
 
 public class Main {
     public static void main(String[] args) {
 
-        //  LocalDateTime dateTime = LocalDateTime.now();
-
-
-
         // 1. declare
         Scanner val = new Scanner(System.in);
-        TimeDate timeDate = new TimeDate();
+        LocalDateTime dateTime = LocalDateTime.now();
         RetirmentAge retirmentAge = new RetirmentAge();
 
-        System.out.println("Today date - " + timeDate.date);
-        System.out.println("Today time - " + timeDate.time);
-        System.out.println("Write please Retirement_age in your Country! ");
-        retirmentAge.setRetirement_age(val.nextInt());
-        System.out.println("Write please your  Birth_month! ");
-        retirmentAge.setBirth_month(val.nextInt());
-        System.out.println("You write your birth_month - " + retirmentAge.getBirth_month() +
-                '\n' + "Write please your year of birth ");
-        retirmentAge.setBirth_years(val.nextInt());  //Years in the present
-        System.out.println("You write your year of birth - " + retirmentAge.getBirth_years());
-        retirmentAge.retirement();
+        System.out.println("Today date - " + dateTime.toLocalDate());
+        System.out.println("Today time - " + dateTime.toLocalTime());
 
-        // 2. Validate
-        if (validateRetirement(retirmentAge)== false ) {
-            System.out.println("ERROR");
-            return;
+        System.out.println("Write please Retirement_age in your Country! ");
+
+        //Validate
+        int validate = 0, validateCont = 0, validateData;
+        while (validate == 0) {
+            if (validateCont == 0) {
+                validateData = val.nextInt();
+                boolean validateRetirementOut = validateRetirementAge(validateData);
+                if (validateRetirementOut == true) {
+                    retirmentAge.setRetirement_age(validateData);
+                    System.out.println("Write please your  Birth_month! ");
+                    validateCont++;
+                }
+            }
+            if (validateCont == 1) {
+                validateData = val.nextInt();
+                boolean validateBirthMonthOut = validationBirthMonth(validateData);
+                if (validateBirthMonthOut == true) {
+                    retirmentAge.setBirth_month(validateData);
+                    System.out.println("Write please your year of birth ");
+                    validateCont++;
+                }
+            }
+            if (validateCont == 2) {
+                int date = dateTime.getYear();
+                validateData = val.nextInt();
+                boolean validateBirthYarOut = validateBirthYar(validateData, date);
+                if (validateBirthYarOut == true) {
+                    retirmentAge.setBirth_years(validateData);
+                    validateCont = 0;
+                    break;
+                }
+            }
         }
 
         // 3.calculate
-        calculateRetirement(retirmentAge);
-
-
-        // 4. printout
-        System.out.println(retirmentAge);
+        int yar = dateTime.getYear();
+        int data = dateTime.getMonthValue();
+        calculateRetirement(yar, data, retirmentAge.getRetirement_age(), retirmentAge.getBirth_month(), retirmentAge.getBirth_years());
+        System.out.println();
     }
 
-
-    private void calculateRetirement (RetirmentAge retirementAge) {
-        public void retirement() {
-            retirement_age = retirement_age - (getYear() - birth_years);
-            System.out.println('\n' + "Years for retirement - " + retirement_age);
-            int month = 12 - getMonth() + birth_month;
-            System.out.println("Month for retirement  - " + month);
-        }
-    }
-
-    private boolean validateRetirement(RetirmentAge input) {
-        if (retirementAge >= 60 && retirementAge <= 67) {
-            this.retirement_age = retirementAge;
-        } else if (birth_month > 0 && birth_month <= 12) {
-            this.birth_month = birth_month;
-        } else if (birth_years > 0 && birth_years <= getYear()) {
-            this.birth_years = birth_years;
+    //Methods
+    public static boolean validateBirthYar(int validateYar, int dataTime) {
+        if (validateYar >= 1920 && validateYar <= dataTime) {
+            return true;
         } else {
-            this.birth_month = -1;
-            System.out.println("You don't write correct birth_month or year of birth: " + '\n' + "Please write agan:");
+            System.out.println("You don't write correct Retirement_age or birth Month or Year of birth: " + '\n' + "Please write agan:");
+            return false;
         }
-        return false;
+    }
+
+    public static boolean validationBirthMonth(int validationMonth) {
+        if (validationMonth > 0 && validationMonth <= 12) {
+            return true;
+        } else {
+            System.out.println("You don't write correct Retirement_age or year of birth: " + '\n' + "Please write agan:");
+            return false;
+        }
+    }
+
+    public static boolean validateRetirementAge(int validateRetirement) {
+        if (validateRetirement >= 60 && validateRetirement <= 70) {
+            return true;
+        } else {
+            System.out.println("You don't write correct Retirement_age or year of birth: " + '\n' + "Please write agan:");
+            return false;
+        }
+    }
+
+    private static void calculateRetirement(int yar, int data, int retirement_age, int Birth_month, int Birth_years) {
+        retirement_age = retirement_age - (yar - Birth_years);
+        System.out.println('\n' + "Years for retirement - " + retirement_age);
+        int month = 12 - data + Birth_month;
+        System.out.println("Month for retirement  - " + month);
     }
 }
+

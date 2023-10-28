@@ -1,4 +1,4 @@
-public class RetirmentAge extends TimeDate {
+public class RetirmentAge {
     private int retirement_age;
     private int birth_month;
     private int birth_years;
