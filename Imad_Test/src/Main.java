@@ -24,7 +24,6 @@ public class Main {
                     retirmentAge.setRetirement_age(retirmentAge.getValidateData());
                     System.out.println("Write please your  Birth_month! ");
                     retirmentAge.setValidateCont(retirmentAge.getValidateCont()+1);
-                    System.out.println(retirmentAge.getValidateCont());
                 }
             }
             if (retirmentAge.getValidateCont() == 1) {
@@ -34,7 +33,6 @@ public class Main {
                     retirmentAge.setBirth_month(retirmentAge.getValidateData());
                     System.out.println("Write please your year of birth ");
                     retirmentAge.setValidateCont(retirmentAge.getValidateCont() + 1);
-                    System.out.println(retirmentAge.getValidateCont());
                 }
             }
             if (retirmentAge.getValidateCont() == 2) {
@@ -44,14 +42,15 @@ public class Main {
                 if (validateBirthYarOut == true) {
                     retirmentAge.setBirth_years(retirmentAge.getValidateData());
                     retirmentAge.setValidateCont(0);
+                    System.out.println(retirmentAge.getValidateCont());
                     break;
                 }
             }
         }
 
         // 3.calculate
-        // int[] calculateMas = new int[]{dateTime.getYear(), dateTime.getMonthValue(), retirmentAge.getRetirement_age(), retirmentAge.getBirth_month(), retirmentAge.getBirth_years()}
-        //calculateRetirement(calculateMas);
+        int[] calculateMas = new int[]{dateTime.getYear(), dateTime.getMonthValue(), retirmentAge.getRetirement_age(), retirmentAge.getBirth_month(), retirmentAge.getBirth_years()}
+        calculateRetirement(calculateMas);
     }
 
     //Methods
@@ -82,16 +81,16 @@ public class Main {
         }
     }
 
-    private static void calculateRetirement(int[] calculateMas) {
+    private static int[] calculateRetirement(int[] calculateMas) {
         String[] nameCalcul = new String[]{"yar", "data", "retirement_age", "Birth_month", "Birth_years"};
         for (int i = 0; i < calculateMas.length; i++) {
 
         }
 
-//        retirement_age = retirement_age - (yar - Birth_years);
-//        System.out.println('\n' + "Years for retirement - " + retirement_age);
-//        int month = 12 - data + Birth_month;
-//        System.out.println("Month for retirement  - " + month);
+        retirement_age = retirement_age - (yar - Birth_years);
+        System.out.println('\n' + "Years for retirement - " + retirement_age);
+        int month = 12 - data + Birth_month;
+        System.out.println("Month for retirement  - " + month);
 
     }
 }
