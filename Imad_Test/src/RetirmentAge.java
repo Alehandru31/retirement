@@ -2,6 +2,30 @@ public class RetirmentAge {
     private int retirement_age;
     private int birth_month;
     private int birth_years;
+    private int validate = 0;
+    private int validateCont;
+    private int validateData;
+
+    public void setValidateCont(int validateCont) {
+        this.validateCont = validateCont;
+    }
+
+    public void setValidateData(int validateData) {
+        this.validateData = validateData;
+    }
+
+    public int getValidate() {
+        return validate;
+    }
+
+    public int getValidateCont() {
+        return validateCont;
+    }
+
+    public int getValidateData() {
+        return validateData;
+    }
+
 
     public int getRetirement_age() {
         return retirement_age;
